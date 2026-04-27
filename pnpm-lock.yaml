@@ -12,7 +12,7 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(react@19.2.4)
       '@prisma/client':
-        specifier: ^5.22.0
+        specifier: 5.22.0
         version: 5.22.0(prisma@5.22.0)
       bcryptjs:
         specifier: ^3.0.3
@@ -21,7 +21,7 @@ importers:
         specifier: 16.2.4
         version: 16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       prisma:
-        specifier: ^5.22.0
+        specifier: 5.22.0
         version: 5.22.0
       react:
         specifier: 19.2.4

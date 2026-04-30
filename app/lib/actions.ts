@@ -2,6 +2,9 @@
 
 import { prisma } from '@/app/lib/prisma';
 import bcrypt from 'bcryptjs';
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
+
 
 export async function createUser(_: any, formData: FormData) {
   try {
@@ -48,3 +51,64 @@ export async function createUser(_: any, formData: FormData) {
     };
   }
 }
+
+export async function authenticate(_: any, formData: FormData) {
+  try {
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    // ✅ IMPORTANT: disable NextAuth redirect
+    await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+
+    return {
+      success: true,
+      message: 'Login successful',
+    };
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return {
+            success: false,
+            message: 'Invalid email or password',
+          };
+        default:
+          return {
+            success: false,
+            message: 'Something went wrong.',
+          };
+      }
+    }
+
+    return {
+      success: false,
+      message: 'Unexpected error occurred.',
+    };
+  }
+}
+
+// export async function authenticate(_: any, formData: FormData) {
+//   try {
+//     await signIn('credentials', formData);
+//   } catch (error) {
+//     if (error instanceof AuthError) {
+//       switch (error.type) {
+//         case 'CredentialsSignin':
+//           return {
+//             success: false,
+//             message: 'Invalid email or password',
+//           };
+//         default:
+//           return {
+//             success: false,
+//             message: 'Something went wrong. Please try again',
+//           };
+//       }
+//     }
+//     throw error;
+//   }
+// }

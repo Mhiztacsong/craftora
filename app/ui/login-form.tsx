@@ -31,7 +31,7 @@ export default function LoginForm() {
   }, [result, router]);
 
   return (
-    <form action={formAction} className="space-y-3">
+    <form action={formAction} className="space-y-3 p-2">
       <div className="rounded-lg bg-gray-100 px-6 pb-4 pt-8">
         <h1 className="mb-3 text-2xl font-semibold text-blue-900">
           Login to Craftora
@@ -50,10 +50,11 @@ export default function LoginForm() {
               name="email"
               type="email"
               placeholder="Enter your email"
-              className="peer w-full border py-2 pl-10 pr-3 rounded"
+              className="peer w-full border py-2 pl-10 pr-3 rounded
+              focus:bg-yellow-50 focus:border-blue-500 focus:outline-none transition"
               required
             />
-            <AtSymbolIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 peer-focus:text-gray-700" />
+            <AtSymbolIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 peer-focus:text-blue-500" />
           </div>
         </div>
 
@@ -70,11 +71,12 @@ export default function LoginForm() {
               name="password"
               type="password"
               placeholder="Enter password"
-              className="peer w-full border py-2 pl-10 pr-3 rounded"
+              className="peer w-full border py-2 pl-10 pr-3 rounded
+              focus:bg-yellow-50 focus:border-blue-500 focus:outline-none transition"
               required
               minLength={6}
             />
-            <KeyIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 peer-focus:text-gray-700" />
+            <KeyIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 peer-focus:text-blue-500" />
           </div>
         </div>
 

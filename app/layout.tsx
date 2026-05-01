@@ -33,13 +33,13 @@ export default function RootLayout({
         
         {/* ✅ NAVBAR (this was missing) */}
         <header className="bg-black/90 backdrop-blur border-b sticky top-0 z-50 p-4">
-          <nav className="max-w-6xl mx-auto flex items-center justify-between p-4">
+          <nav className="max-w-6xl mx-auto flex items-center justify-between p-1">
             
             <Link href="/" className="text-4xl font-bold text-blue-600 ">
               Craftora
             </Link>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1">
               <Link href="/login" className="text-white hover:text-gray-300 transition">
                 Login
 
@@ -59,7 +59,7 @@ export default function RootLayout({
         </header>
 
         {/* ✅ MAIN CONTENT WRAPPER */}
-        <main className="flex-1 max-w-6xl mx-auto w-full p-6">
+        <main className="flex-1 max-w-6xl mx-auto w-full px-1 mt-10">
           {children}
         </main>
 

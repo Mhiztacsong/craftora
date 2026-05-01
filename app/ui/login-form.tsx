@@ -32,8 +32,8 @@ export default function LoginForm() {
 
   return (
     <form action={formAction} className="space-y-3">
-      <div className="rounded-lg bg-gray-800 px-6 pb-4 pt-8">
-        <h1 className="mb-3 text-2xl font-semibold">
+      <div className="rounded-lg bg-gray-100 px-6 pb-4 pt-8">
+        <h1 className="mb-3 text-2xl font-semibold text-blue-900">
           Login to Craftora
         </h1>
 
@@ -80,7 +80,7 @@ export default function LoginForm() {
 
          {/* BUTTON */}
         <button
-          className="mt-4 w-full bg-black text-white p-2 rounded flex items-center justify-center"
+          className="mt-4 w-full bg-blue-600 text-white p-2 rounded flex items-center justify-center hover:bg-blue-700 transition"
           disabled={isPending}
         >
         {isPending ? (

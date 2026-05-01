@@ -17,8 +17,8 @@ export default function SignupForm() {
 
   return (
     <form action={formAction} className="space-y-3">
-      <div className="rounded-lg bg-gray-800 px-6 pb-4 pt-8">
-        <h1 className="mb-3 text-2xl font-semibold">
+      <div className="rounded-lg bg-gray-100 px-6 pb-4 pt-8">
+        <h1 className="mb-3 text-2xl font-semibold text-blue-900">
           Create an account
         </h1>
 
@@ -94,7 +94,7 @@ export default function SignupForm() {
 
         {/* BUTTON */}
         <button
-          className="mt-4 w-full bg-black text-white p-2 rounded"
+          className="mt-4 w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
           disabled={isPending}
         >
           {isPending ? 'Creating...' : 'Sign Up'}

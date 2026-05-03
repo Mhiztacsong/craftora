@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex flex-col items-center">
       
       {/* HERO SECTION */}
-      <section className="text-center py-24 px-6 bg-gradient-to-b from-blue-50 to-white w-full">
+      <section className="text-center py-20 px-6 bg-gradient-to-b from-blue-50 to-white w-full">
         
         <h1 className="text-4xl sm:text-6xl font-bold mb-6 leading-tight">
           Manage Your Crafts <br />
@@ -17,30 +17,46 @@ export default function Home() {
           Craftora helps you organize, track, and grow your handmade business — all in one simple dashboard.
         </p>
 
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center gap-4 mb-12">
           <Link
             href="/signup"
-            className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
           >
             Get Started
           </Link>
 
           <Link
             href="/login"
-            className="border px-6 py-3 rounded-md hover:bg-gray-100 transition"
+            className="border px-6 py-3 rounded-lg hover:bg-gray-100 transition"
           >
             Login
           </Link>
         </div>
 
         {/* HERO IMAGE */}
-        <div className="mt-16">
+        <div className="relative w-full max-w-5xl mx-auto">
+
+          {/* Glow background (subtle premium effect) */}
+          <div className="absolute inset-0 bg-blue-200/30 blur-3xl rounded-full -z-10"></div>
+
+          {/* Desktop */}
           <Image
-            src="/craftora-hero.webp"
-            alt="Dashboard preview"
-            width={900}
-            height={500}
-            className="rounded-lg shadow-lg mx-auto"
+            src="/craftoraHeroImageDesktopView2.jpg"
+            width={1200}
+            height={800}
+            className="hidden md:block w-full h-auto rounded-2xl shadow-2xl"
+            alt="Craftora hero image desktop version"
+            priority
+          />
+
+          {/* Mobile */}
+          <Image
+            src="/craftoraMobileImage.jpg"
+            width={600}
+            height={700}
+            className="block md:hidden w-full h-auto rounded-2xl shadow-xl"
+            alt="Craftora hero image mobile version"
+            priority
           />
         </div>
 

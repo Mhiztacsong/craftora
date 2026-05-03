@@ -4,6 +4,8 @@ import { prisma } from '@/app/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 
 export async function createUser(_: any, formData: FormData) {
@@ -91,24 +93,40 @@ export async function authenticate(_: any, formData: FormData) {
   }
 }
 
-// export async function authenticate(_: any, formData: FormData) {
-//   try {
-//     await signIn('credentials', formData);
-//   } catch (error) {
-//     if (error instanceof AuthError) {
-//       switch (error.type) {
-//         case 'CredentialsSignin':
-//           return {
-//             success: false,
-//             message: 'Invalid email or password',
-//           };
-//         default:
-//           return {
-//             success: false,
-//             message: 'Something went wrong. Please try again',
-//           };
-//       }
-//     }
-//     throw error;
-//   }
-// }
+export async function createProduct(prevState: any, formData: FormData) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.email) {
+      return { success: false, message: "Not authenticated" };
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+
+    if (!user) {
+      return { success: false, message: "User not found" };
+    }
+
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const price = Number(formData.get("price"));
+    const imageUrl = formData.get("imageUrl") as string;
+
+    await prisma.product.create({
+      data: {
+        title,
+        description,
+        price,
+        imageUrl,
+        userId: user.id,
+      },
+    });
+
+    return { success: true, message: "Product created successfully 🎉" };
+
+  } catch (error) {
+    return { success: false, message: "Something went wrong" };
+  }
+}

@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
-import { ArrowRightEndOnRectangleIcon, UserPlusIcon} from "@heroicons/react/24/outline";
+import {
+  ArrowRightEndOnRectangleIcon,
+  UserPlusIcon,
+} from "@heroicons/react/24/outline";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,37 +32,38 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        
-        {/* ✅ NAVBAR (this was missing) */}
-        <header className="bg-black/90 backdrop-blur border-b sticky top-0 z-50 p-4">
-          <nav className="max-w-6xl mx-auto flex items-center justify-between p-1">
+      <body className="min-h-full flex flex-col bg-gray-50">
+
+        {/* NAVBAR */}
+        <header className="bg-gray-300 border-b sticky top-0 z-50">
+          <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
             
-            <Link href="/" className="text-4xl font-bold text-blue-600 ">
+            <Link href="/" className="text-2xl font-bold text-blue-600">
               Craftora
             </Link>
 
-            <div className="flex items-center gap-1">
-              <Link href="/login" className="text-white hover:text-gray-300 transition">
+            <div className="flex items-center gap-4">
+              <Link
+                href="/login"
+                className="flex items-center gap-1 text-gray-700 hover:text-black transition"
+              >
                 Login
-
-                <ArrowRightEndOnRectangleIcon className="inline-block w-5 h-6 ml-1" />
+                <ArrowRightEndOnRectangleIcon className="w-5" />
               </Link>
 
               <Link
                 href="/signup"
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+                className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
               >
                 Sign up
-
-                <UserPlusIcon className="inline-block w-5 h-6 ml-1" />
+                <UserPlusIcon className="w-5" />
               </Link>
             </div>
           </nav>
         </header>
 
-        {/* ✅ MAIN CONTENT WRAPPER */}
-        <main className="flex-1 max-w-6xl mx-auto w-full px-1 mt-10">
+        {/* IMPORTANT: NO max-width here */}
+        <main className="flex-1">
           {children}
         </main>
 

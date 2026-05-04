@@ -15,8 +15,10 @@ export default async function DashboardPage() {
   // 1. Auth check
   const session = await auth();
 
-  if (!session?.user?.email) {
-    redirect("/login");
+  if (!session) redirect("/login");
+
+  if (session.user.role !== "ARTISAN") {
+    redirect("/products");
   }
 
   // 2. Get user

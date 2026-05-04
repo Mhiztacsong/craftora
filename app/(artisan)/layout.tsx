@@ -20,32 +20,30 @@ export default async function DashboardLayout({
   const userEmail = session?.user?.email;
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="min-h-screen flex bg-gray-50">
 
       {/* SIDEBAR */}
-      <aside className="hidden md:flex w-64 flex-col bg-white border-r px-5 py-6 shadow-sm">
+      <aside className="hidden md:flex w-64 flex-col bg-white border-r px-4 py-6">
 
-        {/* BRAND */}
-        <Link href="/dashboard" className="mb-10 flex justify-center">
-            <div className="p-1 rounded-full bg-gray-400">
-                <div className="w-24 h-24 rounded-full overflow-hidden">
-                    <Image
-                        src="/craftoraLogo.png"
-                        alt="Craftora Logo"
-                        width={96}
-                        height={96}
-                        className="object-cover w-full h-full"
-                    />
-                </div>
-            </div>
+        {/* LOGO */}
+        <Link href="/dashboard" className="mb-8 flex justify-center">
+          <div className="w-14 h-14 rounded-full overflow-hidden border shadow-sm">
+            <Image
+              src="/craftoraLogo.png"
+              alt="Craftora"
+              width={56}
+              height={56}
+              className="w-full h-full object-cover"
+            />
+          </div>
         </Link>
 
         {/* NAV */}
-        <nav className="flex flex-col gap-2 text-sm">
+        <nav className="flex flex-col gap-1 text-sm">
 
           <Link
             href="/dashboard"
-            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 transition"
+            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
           >
             <HomeIcon className="w-5" />
             Dashboard
@@ -53,7 +51,7 @@ export default async function DashboardLayout({
 
           <Link
             href="/dashboard/products"
-            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 transition"
+            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
           >
             <ShoppingBagIcon className="w-5" />
             My Products
@@ -61,7 +59,7 @@ export default async function DashboardLayout({
 
           <Link
             href="/dashboard/products/new"
-            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 transition"
+            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
           >
             <PlusIcon className="w-5" />
             Add Product
@@ -82,7 +80,7 @@ export default async function DashboardLayout({
               await signOut({ redirectTo: "/" });
             }}
           >
-            <button type="submit" className="flex items-center gap-2 text-red-500 hover:text-red-600 text-sm">
+            <button className="flex items-center gap-2 text-red-500 hover:text-red-600 text-sm">
               <ArrowRightStartOnRectangleIcon className="w-5" />
               Logout
             </button>
@@ -94,17 +92,16 @@ export default async function DashboardLayout({
       <div className="flex-1 flex flex-col">
 
         {/* TOPBAR */}
-        <header className="flex items-center justify-between bg-white border-b px-6 py-4 shadow-sm">
+        <header className="flex items-center justify-between bg-white border-b px-6 py-4">
 
-          {/* MOBILE MENU */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-3 md:hidden">
             <Bars3Icon className="w-6" />
-            <span className="font-bold text-lg">Craftora</span>
+            <span className="font-semibold">Craftora</span>
           </div>
 
-          {/* DESKTOP USER GREETING */}
           <div className="hidden md:block text-sm text-gray-600">
-            Welcome back, <span className="font-medium">{userName}</span>
+            Welcome back,{" "}
+            <span className="font-medium text-black">{userName}</span>
           </div>
         </header>
 

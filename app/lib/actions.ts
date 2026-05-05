@@ -56,39 +56,33 @@ export async function createUser(_: any, formData: FormData) {
 
 export async function authenticate(_: any, formData: FormData) {
   try {
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
-    // ✅ IMPORTANT: disable NextAuth redirect
-    await signIn('credentials', {
+    await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
 
+    // ❌ DO NOT fetch user again
+    // Role is already inside session (NextAuth handles it)
+
     return {
       success: true,
-      message: 'Login successful',
+      message: "Login successful",
     };
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return {
-            success: false,
-            message: 'Invalid email or password',
-          };
-        default:
-          return {
-            success: false,
-            message: 'Something went wrong.',
-          };
-      }
+      return {
+        success: false,
+        message: "Invalid email or password",
+      };
     }
 
     return {
       success: false,
-      message: 'Unexpected error occurred.',
+      message: "Unexpected error occurred.",
     };
   }
 }

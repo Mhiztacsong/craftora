@@ -22,11 +22,7 @@ export default function LoginForm() {
    // ✅ handle redirect AFTER successful login
   useEffect(() => {
     if (result?.success) {
-      const timer = setTimeout(() => {
-        router.push('/dashboard');
-      }, 1500); // small UX delay
-
-      return () => clearTimeout(timer);
+        router.push("/post-login"); // temporary neutral route
     }
   }, [result, router]);
 

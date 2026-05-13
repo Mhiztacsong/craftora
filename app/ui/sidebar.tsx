@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -17,10 +16,8 @@ import {
 
 import { logout } from "@/app/lib/auth-action";
 
-export default function Sidebar({ role, user }: any) {
-  const [open, setOpen] = useState(false);
+export default function Sidebar({ role, user, open, setOpen }: any) {
   const pathname = usePathname();
-
   const isArtisan = role === "artisan";
 
   const artisanLinks = [
@@ -60,7 +57,7 @@ export default function Sidebar({ role, user }: any) {
           }
         )}
       >
-        {/* CLOSE (mobile) */}
+        {/* CLOSE BUTTON (mobile) */}
         <div className="md:hidden flex justify-end mb-4">
           <button onClick={() => setOpen(false)}>
             <XMarkIcon className="w-6" />
@@ -121,7 +118,6 @@ export default function Sidebar({ role, user }: any) {
             </p>
           </div>
 
-          {/* LOGOUT */}
           <form action={logout} className="mt-4">
             <button
               type="submit"

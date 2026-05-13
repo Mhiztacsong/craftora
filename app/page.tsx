@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex flex-col items-center">
       
       {/* HERO SECTION */}
-      <section className="text-center py-20 px-6 bg-gradient-to-b from-blue-50 to-white w-full">
+      <section className="text-center py-6 px-6 bg-gradient-to-b from-blue-50 to-white w-full">
         
         <h1 className="text-4xl sm:text-6xl font-bold mb-6 leading-tight">
           Manage Your Crafts <br />
@@ -63,7 +63,7 @@ export default function Home() {
       </section>
 
       {/* FEATURES */}
-      <section className="max-w-6xl w-full py-20 px-6">
+      <section className="max-w-6xl w-full py-2 px-6">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           
           <div className="p-6 bg-white border rounded-xl shadow-sm hover:shadow-md transition">

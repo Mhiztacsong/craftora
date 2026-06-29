@@ -82,15 +82,17 @@ export default function NewProductForm() {
           </div>
         </div>
 
-        {/* IMAGE URL */}
+        {/* PRODUCT IMAGE */}
         <div className="mt-4">
           <label className="mb-2 block text-sm font-medium">
-            Image URL
+            Product Image
           </label>
           <div className="relative">
             <input
-              name="imageUrl"
-              placeholder="https://image-url.com"
+              type="file"
+              name="image"
+              accept="image/*"
+              required
               className="peer w-full border py-2 pl-10 pr-3 rounded
               focus:bg-yellow-50 focus:border-blue-500 focus:outline-none transition"
             />

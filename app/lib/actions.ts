@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import { put } from "@vercel/blob";
 
 
 export async function createUser(_: any, formData: FormData) {
@@ -106,14 +106,28 @@ export async function createProduct(prevState: any, formData: FormData) {
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const price = Number(formData.get("price"));
-    const imageUrl = formData.get("imageUrl") as string;
+    const image = formData.get("image") as File;
+
+    if (!image || image.size === 0) {
+      return {
+        success: false,
+        message: "Please select an image.",
+      };
+    }
+
+    const fileName = `${crypto.randomUUID()}-${image.name}`;
+
+    const blob = await put(fileName, image, {
+      access: "public",
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    });
 
     await prisma.product.create({
       data: {
         title,
         description,
         price,
-        imageUrl,
+        imageUrl: blob.url,
         userId: user.id,
       },
     });
@@ -121,6 +135,11 @@ export async function createProduct(prevState: any, formData: FormData) {
     return { success: true, message: "Product created successfully 🎉" };
 
   } catch (error) {
-    return { success: false, message: "Something went wrong" };
+    console.error("Create Product Error:", error);
+
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
   }
 }

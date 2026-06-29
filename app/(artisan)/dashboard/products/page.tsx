@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Breadcrumbs from "@/app/ui/breadcrumbs";
+import { deleteProduct } from "@/app/lib/actions";
 
 export default async function DashboardProductsPage() {
   // 1. Get session
@@ -102,9 +103,19 @@ export default async function DashboardProductsPage() {
                       Edit
                     </Link>
 
-                    <button className="text-red-500 hover:underline">
-                      Delete
-                    </button>
+                    <form action={deleteProduct}>
+                      <input
+                        type="hidden"
+                        name="id"
+                        value={product.id}
+                      />
+                      <button
+                        type="submit"
+                        className="text-red-500 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>

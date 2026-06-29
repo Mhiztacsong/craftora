@@ -6,6 +6,7 @@ import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { auth } from "@/auth";
 import { put, del } from "@vercel/blob";
+import { revalidatePath } from "next/cache";
 
 
 export async function createUser(_: any, formData: FormData) {
@@ -245,5 +246,59 @@ export async function updateProduct(
       success: false,
       message: "Something went wrong",
     };
+  }
+}
+
+
+export async function deleteProduct(formData: FormData) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.email) {
+      return;
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+    });
+
+    if (!user) {
+      return;
+    }
+
+    const id = formData.get("id") as string;
+
+    const existingProduct = await prisma.product.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!existingProduct) {
+      return;
+    }
+
+    if (existingProduct.userId !== user.id) {
+      return;
+    }
+
+    if (existingProduct.imageUrl) {
+      await del(existingProduct.imageUrl, {
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+      });
+    }
+
+    await prisma.product.delete({
+      where: {
+        id,
+      },
+    });
+
+    revalidatePath("/dashboard/products");
+    
+  } catch (error) {
+    console.error("Delete Product Error:", error);
   }
 }

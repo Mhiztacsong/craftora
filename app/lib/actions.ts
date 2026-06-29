@@ -150,10 +150,52 @@ export async function updateProduct(
   formData: FormData
 ) {
   try {
+    const session = await auth();
+
+    if (!session?.user?.email) {
+      return {
+        success: false,
+        message: "Not authenticated",
+      };
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+    });
+
+    if (!user) {
+      return {
+        success: false,
+        message: "User not found",
+      };
+    }
+
     const id = formData.get("id") as string;
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const price = Number(formData.get("price"));
+
+    const existingProduct = await prisma.product.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!existingProduct) {
+      return {
+        success: false,
+        message: "Product not found",
+      };
+    }
+
+    if (existingProduct.userId !== user.id) {
+      return {
+        success: false,
+        message: "Unauthorized",
+      };
+    }
 
     await prisma.product.update({
       where: {

@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { auth } from "@/auth";
-import { put } from "@vercel/blob";
+import { put, del } from "@vercel/blob";
 
 
 export async function createUser(_: any, formData: FormData) {
@@ -176,6 +176,7 @@ export async function updateProduct(
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const price = Number(formData.get("price"));
+    const image = formData.get("image") as File;
 
     const existingProduct = await prisma.product.findUnique({
       where: {
@@ -197,6 +198,19 @@ export async function updateProduct(
       };
     }
 
+    let imageUrl = existingProduct.imageUrl;
+
+    if (image && image.size > 0) {
+      const fileName = `${crypto.randomUUID()}-${image.name}`;
+
+      const blob = await put(fileName, image, {
+        access: "public",
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+      });
+
+      imageUrl = blob.url;
+    }
+
     await prisma.product.update({
       where: {
         id,
@@ -205,8 +219,20 @@ export async function updateProduct(
         title,
         description,
         price,
+        imageUrl,
       },
     });
+
+    if (
+      image &&
+      image.size > 0 &&
+      existingProduct.imageUrl &&
+      existingProduct.imageUrl !== imageUrl
+    ) {
+      await del(existingProduct.imageUrl, {
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+      });
+    }
 
     return {
       success: true,

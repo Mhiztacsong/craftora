@@ -42,7 +42,7 @@ export default function EditProductForm({ product }: { product: Product }) {
         name="id"
         value={product.id}
       />  
-      
+
       <div className="rounded-lg bg-gray-100 px-6 pb-6 pt-8">
         
         <h1 className="mb-4 text-2xl font-semibold text-blue-900">
@@ -116,6 +116,9 @@ export default function EditProductForm({ product }: { product: Product }) {
             />
             <PhotoIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 peer-focus:text-blue-500" />
           </div>
+          <p className="mt-2 text-sm text-gray-500">
+            Leave blank to keep the current image.
+          </p>
         </div>
 
         {/* BUTTON */}

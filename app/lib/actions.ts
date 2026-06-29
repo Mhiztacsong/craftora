@@ -143,3 +143,39 @@ export async function createProduct(prevState: any, formData: FormData) {
     };
   }
 }
+
+
+export async function updateProduct(
+  prevState: any,
+  formData: FormData
+) {
+  try {
+    const id = formData.get("id") as string;
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const price = Number(formData.get("price"));
+
+    await prisma.product.update({
+      where: {
+        id,
+      },
+      data: {
+        title,
+        description,
+        price,
+      },
+    });
+
+    return {
+      success: true,
+      message: "Product updated successfully! 🎉",
+    };
+  } catch (error) {
+    console.error("Update Product Error:", error);
+
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
+  }
+}
